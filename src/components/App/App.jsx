@@ -1,83 +1,46 @@
-import { nanoid } from 'nanoid';
+import { ListContacts } from '../ListContacts/ListContacts';
+import { Filter } from '../Filter/Filter';
+import { ContactForm } from '../ContactForm/ContactForm';
 import React, { Component } from 'react';
-const inputsContact = { name: '', number: '' };
+
 export class App extends Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
     filter: '',
-    inputsContact,
-  };
-  handleChange = e => {
-    this.setState({ inputsContact: e.currentTarget.value });
-  };
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log(`Signed up as: ${this.state.inputsContact}`);
-
-    this.props.onSubmit({ ...this.state.inputsContact });
   };
 
-  handleChangeFilter = e => {
-    this.setState({ filter: e.target.value });
+  ChangeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  // deleteContacts = contactsId => {};
+  formSubmitHandler = data => {
+    console.log('data :>> ', data);
   };
   render() {
-    const { name, number, filter } = this.state;
-
+    const { filter, contacts, id } = this.state;
+    const filterNormalized = this.state.filter.toLowerCase();
+    const visiableContacts = this.state.contacts.filter(contact =>
+      contact.text.toLowerCase().includes(filterNormalized)
+    );
     return (
       <div>
         <section>
           <div>
             <h2>Phonebook</h2>
-            <form onSubmit={this.handleSubmit}>
-              <label>
-                Name
-                <input
-                  id={nanoid()}
-                  type="text"
-                  name={name}
-                  pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                  title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                  required
-                  onChange={this.handleChange}
-                />
-              </label>
-              <label>
-                Number
-                <input
-                  id={nanoid()}
-                  type="tel"
-                  name={number}
-                  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                  title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                  required
-                  onChange={this.handleChange}
-                />
-              </label>
-
-              <button type="submit">Add contact</button>
-            </form>
+            <ContactForm onSubmit={this.formSubmitHandler} />
           </div>
         </section>
         <section>
           <div>
+            <Filter value={filter} onChange={this.ChangeFilter} />
             <h2>Contacts</h2>
-            <input
-              id={nanoid()}
-              type="text"
-              value={filter}
-              onChange={this.handleChangeFilter}
-            />
-            <ul>
-              <li>
-                <p>Rosie Simpson</p>
-              </li>
-              <li>
-                <p>Hermione Kline</p>
-              </li>
-              <li>
-                <p>Eden Clements</p>
-              </li>
-            </ul>
+            <ListContacts contacts={visiableContacts} />
           </div>
         </section>
       </div>
