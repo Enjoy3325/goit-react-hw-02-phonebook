@@ -17,7 +17,7 @@ export class App extends Component {
     this.props.onSubmit({ ...this.state.inputsContact });
   };
 
-  handleChange = e => {
+  handleChangeFilter = e => {
     this.setState({ filter: e.target.value });
   };
   render() {
@@ -65,7 +65,7 @@ export class App extends Component {
               id={nanoid()}
               type="text"
               value={filter}
-              onChange={this.handleChange}
+              onChange={this.handleChangeFilter}
             />
             <ul>
               <li>
