@@ -14,7 +14,6 @@ export class App extends Component {
     e.preventDefault();
     console.log(`Signed up as: ${this.state.inputsContact}`);
 
-    // Проп, який передається формі для виклику під час сабміту
     this.props.onSubmit({ ...this.state.inputsContact });
   };
 
