@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
 import React, { Component } from 'react';
 
-// const INPUT_CONTACT = { name: '', number: '' };
+const INPUT_CONTACT = { name: '', number: '' };
 export class ContactForm extends Component {
-  state = { name: '', number: '' };
+  state = { ...INPUT_CONTACT };
 
   handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -17,7 +17,7 @@ export class ContactForm extends Component {
     this.reset();
   };
   reset = () => {
-    this.setState({ name: '', number: '' });
+    this.setState({ ...INPUT_CONTACT });
   };
   render() {
     const { name, number } = this.state;

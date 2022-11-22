@@ -14,25 +14,54 @@ export class App extends Component {
     filter: '',
   };
 
+  getNewContact = dataValue => {
+    if (this.checkContacts(dataValue.name)) {
+      return alert(`${dataValue.name} is already in contacts`);
+    }
+    this.setState(({ contacts }) => {
+      return {
+        contacts: [...contacts, dataValue],
+      };
+    });
+    console.log(this.state);
+  };
+
   ChangeFilter = e => {
     this.setState({ filter: e.currentTarget.value });
   };
 
-  // deleteContacts = contactsId => {};
-  formSubmitHandler = data => {
-    console.log('data :>> ', data);
+  handlDeleteContacts = contactsId => {
+    this.setState({
+      contacts: this.state.contacts.filter(element => {
+        return element.contactsId !== contactsId;
+      }),
+    });
+  };
+  formSubmitHandler = name => {
+    console.log('name :>> ', name);
+    const newTodo = {
+      id: nanoid(),
+      name,
+      number,
+    };
+    this.setState(prevState => ({
+      names: [name, ...prevState],
+    }));
+  };
+  filterContact = () => {
+    const filterNormalized = this.state.filter.toLowerCase();
+
+    return this.state.contacts.filter(contact => {
+      return contact.name.toLowerCase().includes(filterNormalized);
+    });
   };
   render() {
-    const { filter, contacts, id } = this.state;
-    const filterNormalized = this.state.filter.toLowerCase();
-    const visiableContacts = this.state.contacts.filter(contact =>
-      contact.text.toLowerCase().includes(filterNormalized)
-    );
+    const { filter } = this.state;
     return (
       <div>
         <section>
           <div>
-            <h2>Phonebook</h2>
+            <h1>Phonebook</h1>
             <ContactForm onSubmit={this.formSubmitHandler} />
           </div>
         </section>
@@ -40,7 +69,10 @@ export class App extends Component {
           <div>
             <Filter value={filter} onChange={this.ChangeFilter} />
             <h2>Contacts</h2>
-            <ListContacts contacts={visiableContacts} />
+            <ListContacts
+              contacts={this.filterContact()}
+              deleteContact={this.handlDeleteContacts}
+            />
           </div>
         </section>
       </div>

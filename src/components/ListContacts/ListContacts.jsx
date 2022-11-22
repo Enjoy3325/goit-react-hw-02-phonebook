@@ -1,29 +1,20 @@
 import { nanoid } from 'nanoid';
+import { CardContact } from '../CardContact/CardContact';
 import React from 'react';
 
-// export const ListContacts = ({ id, contacts }) => {
-//   const serchComplited = contactsId => {
-//     this.setState(
-//         prevState => ({
-//             contacts: prevState.contacts.map(contact => {
-//                 if (contact.id === contactsId) {
-//             return {
-//                         ...contact,
-//                         id: !contact.id
-//                     }
-//                 }
-//           return (
-//             <div>
-//               <ul>
-//                 <li id={id}>
-//                   <p>{contact}</p>
-//                 </li>
-//               </ul>
-//             </div>
-//                 );
-
-//         }
-//       })
-//     ));
-//   };
-// };
+export const ListContacts = ({ contacts, deleteContact }) => {
+  return (
+    <div>
+      <ul>
+        {contacts.map(({ name, number, id }) => {
+          return (
+            <CardContact>
+              key={nanoid()} id={id} name={name} number={number}
+              deleteContact={deleteContact}
+            </CardContact>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
