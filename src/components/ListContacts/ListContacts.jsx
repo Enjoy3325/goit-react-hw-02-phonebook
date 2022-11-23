@@ -8,8 +8,8 @@ export const ListContacts = ({ contacts, deleteContact }) => {
       <ul>
         {contacts.map(({ name, number, id }) => {
           return (
-            <CardContact>
-              key={nanoid()} id={id} name={name} number={number}
+            <CardContact key={nanoid()}>
+              id={id} name={name} number={number}
               deleteContact={deleteContact}
             </CardContact>
           );

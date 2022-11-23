@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { ListContacts } from '../ListContacts/ListContacts';
 import { Filter } from '../Filter/Filter';
 import { ContactForm } from '../ContactForm/ContactForm';
@@ -40,12 +41,12 @@ export class App extends Component {
   formSubmitHandler = name => {
     console.log('name :>> ', name);
     const newTodo = {
-      id: nanoid(),
       name,
-      number,
+      id: nanoid(),
+      // number,
     };
     this.setState(prevState => ({
-      names: [name, ...prevState],
+      newTodos: [newTodo, ...prevState.newTodos],
     }));
   };
   filterContact = () => {
