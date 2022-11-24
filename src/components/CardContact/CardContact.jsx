@@ -23,8 +23,8 @@ export const CardContact = ({ id, name, number, handlDeleteContacts }) => {
 };
 
 CardContact.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  number: PropTypes.number.isRequired,
+  number: PropTypes.string.isRequired,
   handlDeleteContacts: PropTypes.func.isRequired,
 };
