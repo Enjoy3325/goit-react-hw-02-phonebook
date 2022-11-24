@@ -1,20 +1,24 @@
+import { BoxList } from './ListContacts.styled';
 import { nanoid } from 'nanoid';
 import { CardContact } from '../CardContact/CardContact';
 import React from 'react';
 
-export const ListContacts = ({ contacts, deleteContact }) => {
+export const ListContacts = ({ contacts, handlDeleteContacts }) => {
   return (
-    <div>
+    <BoxList>
       <ul>
         {contacts.map(({ name, number, id }) => {
           return (
-            <CardContact key={nanoid()}>
-              id={id} name={name} number={number}
-              deleteContact={deleteContact}
-            </CardContact>
+            <CardContact
+              key={nanoid()}
+              id={id}
+              name={name}
+              number={number}
+              handlDeleteContacts={handlDeleteContacts}
+            ></CardContact>
           );
         })}
       </ul>
-    </div>
+    </BoxList>
   );
 };

@@ -1,3 +1,4 @@
+import { Wrapper } from './App.styled';
 import { nanoid } from 'nanoid';
 import { ListContacts } from '../ListContacts/ListContacts';
 import { Filter } from '../Filter/Filter';
@@ -14,41 +15,36 @@ export class App extends Component {
     ],
     filter: '',
   };
-
+  //Додаю новий контакт
   getNewContact = dataValue => {
     if (this.checkContacts(dataValue.name)) {
       return alert(`${dataValue.name} is already in contacts`);
     }
     this.setState(({ contacts }) => {
       return {
-        contacts: [...contacts, dataValue],
+        contacts: [...contacts, { id: nanoid(), ...dataValue }],
       };
     });
-    console.log(this.state);
+    console.log('----> this.state', this.state);
+  };
+  checkContacts = contact => {
+    return this.state.contacts.find(
+      el => el.name.toLowerCase() === contact.toLowerCase()
+    );
   };
 
   ChangeFilter = e => {
     this.setState({ filter: e.currentTarget.value });
   };
 
-  handlDeleteContacts = contactsId => {
+  handlDeleteContacts = id => {
     this.setState({
-      contacts: this.state.contacts.filter(element => {
-        return element.contactsId !== contactsId;
+      contacts: this.state.contacts.filter(contact => {
+        return contact.id !== id;
       }),
     });
   };
-  formSubmitHandler = name => {
-    console.log('name :>> ', name);
-    const newTodo = {
-      name,
-      id: nanoid(),
-      // number,
-    };
-    this.setState(prevState => ({
-      newTodos: [newTodo, ...prevState.newTodos],
-    }));
-  };
+
   filterContact = () => {
     const filterNormalized = this.state.filter.toLowerCase();
 
@@ -59,24 +55,23 @@ export class App extends Component {
   render() {
     const { filter } = this.state;
     return (
-      <div>
-        <section>
-          <div>
-            <h1>Phonebook</h1>
-            <ContactForm onSubmit={this.formSubmitHandler} />
-          </div>
-        </section>
+      <Wrapper>
+        <div>
+          <h1>Phonebook</h1>
+          <ContactForm onSubmit={this.getNewContact} />
+        </div>
+
         <section>
           <div>
             <Filter value={filter} onChange={this.ChangeFilter} />
             <h2>Contacts</h2>
             <ListContacts
               contacts={this.filterContact()}
-              deleteContact={this.handlDeleteContacts}
+              handlDeleteContacts={this.handlDeleteContacts}
             />
           </div>
         </section>
-      </div>
+      </Wrapper>
     );
   }
 }
