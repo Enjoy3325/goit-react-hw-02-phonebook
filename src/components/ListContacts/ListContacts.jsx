@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { BoxList } from './ListContacts.styled';
 import { nanoid } from 'nanoid';
 import { CardContact } from '../CardContact/CardContact';
@@ -21,4 +22,9 @@ export const ListContacts = ({ contacts, handlDeleteContacts }) => {
       </ul>
     </BoxList>
   );
+};
+
+ListContacts.propTypes = {
+  contacts: PropTypes.array.isRequired,
+  handlDeleteContacts: PropTypes.func.isRequired,
 };

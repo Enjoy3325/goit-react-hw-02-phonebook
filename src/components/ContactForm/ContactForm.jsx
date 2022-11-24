@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {
   SectionForm,
   Form,
@@ -67,10 +67,10 @@ export class ContactForm extends Component {
     );
   }
 }
-// ContactForm.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   number: PropTypes.number.isRequired,
-//   handleChange: PropTypes.func.isRequired,
-//   handleSubmit: PropTypes.func.isRequired,
-//   reset: PropTypes.func.isRequired,
-// };
+ContactForm.propTypes = {
+  name: PropTypes.string.isRequired,
+  number: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+};
